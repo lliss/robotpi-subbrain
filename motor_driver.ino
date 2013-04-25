@@ -6,9 +6,13 @@
 // Left      = 10
 // Right     = 11
 
+int one =   19;
+int two =   20;
+int three = 21;
+int four =  22;
 // Incoming pins
-int dirpin1  = 1;
-int dirpin2  = 2;
+int dirpin1  = 2;
+int dirpin2  = 34;
 int breakpin = 7;
 int pulsepin = 4;
 int lightpin = 8;
@@ -49,6 +53,11 @@ void setup() {
   pinMode(pin, OUTPUT);
   pinMode(testpin, OUTPUT);
 
+  pinMode(one, OUTPUT);
+  pinMode(two, OUTPUT);
+  pinMode(three, OUTPUT);
+  pinMode(four, OUTPUT);
+
   // initialize serial communication at 9600 bits per second:
   Serial.begin(9600);
 }
@@ -63,8 +72,10 @@ void loop() {
 
   int p1 = (int) digitalRead(dirpin1);
   int p2 = (int) digitalRead(dirpin2);
+  Serial.println(p1);
   boolean cease = (boolean) digitalRead(breakpin);
-  parseAndActivate(p1, p2, false, false);
+  cease = !cease;
+  parseAndActivate(p1, p2, cease, false);
 }
 
 /**
@@ -79,6 +90,8 @@ void setForward(boolean pulse) {
   digitalWrite(out5, HIGH);
   digitalWrite(out6, HIGH);
 
+  deactivate();
+  digitalWrite(one, HIGH);
   if (pulse) {
     delay(1000);
     setBreak();
@@ -97,6 +110,8 @@ void setReverse(boolean pulse) {
   digitalWrite(out5, LOW);
   digitalWrite(out6, HIGH);
 
+  deactivate();
+  digitalWrite(two, HIGH);
   if (pulse) {
     delay(1000);
     setBreak();
@@ -114,6 +129,7 @@ void setBreak() {
   digitalWrite(out4, LOW);
   digitalWrite(out5, LOW);
   digitalWrite(out6, HIGH);
+  deactivate();
 }
 
 /**
@@ -128,6 +144,8 @@ void setRight(boolean pulse) {
   digitalWrite(out5, HIGH);
   digitalWrite(out6, HIGH);
 
+  deactivate();
+  digitalWrite(three, HIGH);
   if (pulse) {
     delay(1000);
     setBreak();
@@ -146,6 +164,8 @@ void setLeft(boolean pulse) {
   digitalWrite(out5, LOW);
   digitalWrite(out6, HIGH);
 
+  deactivate();
+  digitalWrite(four, HIGH);
   if (pulse) {
     delay(1000);
     setBreak();
@@ -167,16 +187,23 @@ void parseAndActivate(int p1, int p2, boolean cease, boolean pulse) {
   }
   pulse = false;
   int sum = p1 + p2;
-  if (sum == 0) {
+  if (p1 == 0 && p2 == 0) {
     setForward(pulse);
   }
-  else if(sum == 2) {
+  else if(p1 == 1 && p2 == 1) {
     setReverse(pulse);
   }
-  else if (p1 == 1) {
+  else if (p1 == 1 && p2 == 0) {
     setLeft(pulse);
   }
-  else {
+  else if (p1 == 0 && p2 == 1) {
     setRight(pulse);
   }
+}
+
+void deactivate() {
+  digitalWrite(one, LOW);
+  digitalWrite(two, LOW);
+  digitalWrite(three, LOW);
+  digitalWrite(four, LOW);
 }
