@@ -63,9 +63,6 @@ void setup() {
   pinMode(out4, OUTPUT);
   pinMode(out5, OUTPUT);
   pinMode(out6, OUTPUT);
-
-  // initialize serial communication at 9600 bits per second:
-  Serial.begin(9600);
 }
 
 void loop() {
@@ -81,7 +78,7 @@ void loop() {
   // Read state of direction pins.
   int p1 = (int) digitalRead(dirpin1);
   int p2 = (int) digitalRead(dirpin2);
-  Serial.println(p1);
+
   // Read the state of the break. Convert it into a boolean.
   boolean cease = (boolean) digitalRead(breakpin);
   cease = !cease;
