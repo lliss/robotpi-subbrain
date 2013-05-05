@@ -13,7 +13,7 @@
  *
  */
 
-/**  
+/**
  * Direction Pins Translation:
  *
  * Forward   = 00
@@ -60,6 +60,9 @@ void setup() {
   pinMode(out1, OUTPUT);
   pinMode(out2, OUTPUT);
   pinMode(out3, OUTPUT);
+  pinMode(out4, OUTPUT);
+  pinMode(out5, OUTPUT);
+  pinMode(out6, OUTPUT);
 
   // initialize serial communication at 9600 bits per second:
   Serial.begin(9600);
@@ -186,7 +189,6 @@ void parseAndActivate(int p1, int p2, boolean cease, boolean pulse) {
     return;
   }
   pulse = false;
-  int sum = p1 + p2;
   if (p1 == 0 && p2 == 0) {
     setForward(pulse);
   }
