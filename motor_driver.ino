@@ -188,6 +188,7 @@ void parseAndActivate(int p1, int p2, boolean cease, boolean pulse) {
     setBreak();
     return;
   }
+  // Since this isn't in use right now, just force the pulse to false.
   pulse = false;
   if (p1 == 0 && p2 == 0) {
     setForward(pulse);
