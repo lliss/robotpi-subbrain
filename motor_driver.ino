@@ -6,10 +6,6 @@
 // Left      = 10
 // Right     = 11
 
-int one =   19;
-int two =   20;
-int three = 21;
-int four =  22;
 // Incoming pins
 int dirpin1  = 2;
 int dirpin2  = 34;
@@ -36,9 +32,6 @@ int lights = 14;
 boolean pulse = false;
 boolean oldPinSetting = false;
 
-int pin = 12;
-int testpin = 13;
-
 void setup() {
   // initialize the digital pin as an output.
   // Pin 13 has an LED connected on most Arduino boards:
@@ -50,13 +43,6 @@ void setup() {
   pinMode(out1, OUTPUT);
   pinMode(out2, OUTPUT);
   pinMode(out3, OUTPUT);
-  pinMode(pin, OUTPUT);
-  pinMode(testpin, OUTPUT);
-
-  pinMode(one, OUTPUT);
-  pinMode(two, OUTPUT);
-  pinMode(three, OUTPUT);
-  pinMode(four, OUTPUT);
 
   // initialize serial communication at 9600 bits per second:
   Serial.begin(9600);
@@ -90,8 +76,6 @@ void setForward(boolean pulse) {
   digitalWrite(out5, HIGH);
   digitalWrite(out6, HIGH);
 
-  deactivate();
-  digitalWrite(one, HIGH);
   if (pulse) {
     delay(1000);
     setBreak();
@@ -110,8 +94,6 @@ void setReverse(boolean pulse) {
   digitalWrite(out5, LOW);
   digitalWrite(out6, HIGH);
 
-  deactivate();
-  digitalWrite(two, HIGH);
   if (pulse) {
     delay(1000);
     setBreak();
@@ -129,7 +111,6 @@ void setBreak() {
   digitalWrite(out4, LOW);
   digitalWrite(out5, LOW);
   digitalWrite(out6, HIGH);
-  deactivate();
 }
 
 /**
@@ -144,8 +125,6 @@ void setRight(boolean pulse) {
   digitalWrite(out5, HIGH);
   digitalWrite(out6, HIGH);
 
-  deactivate();
-  digitalWrite(three, HIGH);
   if (pulse) {
     delay(1000);
     setBreak();
@@ -164,8 +143,6 @@ void setLeft(boolean pulse) {
   digitalWrite(out5, LOW);
   digitalWrite(out6, HIGH);
 
-  deactivate();
-  digitalWrite(four, HIGH);
   if (pulse) {
     delay(1000);
     setBreak();
@@ -199,11 +176,4 @@ void parseAndActivate(int p1, int p2, boolean cease, boolean pulse) {
   else if (p1 == 0 && p2 == 1) {
     setRight(pulse);
   }
-}
-
-void deactivate() {
-  digitalWrite(one, LOW);
-  digitalWrite(two, LOW);
-  digitalWrite(three, LOW);
-  digitalWrite(four, LOW);
 }
